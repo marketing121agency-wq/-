@@ -1,10 +1,11 @@
-import { AuditEditComposition, MyComposition } from "./Composition";
+import { AuditEditComposition, GrowthEditComposition, MyComposition } from "./Composition";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <MyComposition />
       <AuditEditComposition />
+      <GrowthEditComposition />
     </>
   );
 };

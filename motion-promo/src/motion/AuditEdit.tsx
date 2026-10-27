@@ -3,9 +3,9 @@ import { AbsoluteFill, OffthreadVideo, Sequence, staticFile, useVideoConfig } fr
 import { ArcText, GridCard, PopNumber, SubText, YELLOW, condensed, inter, useExit } from "./fx";
 
 // Seconds where each word is spoken (measured from pauses in the voice track).
-const sec = (s: number) => Math.round(s * 30);
+export const sec = (s: number) => Math.round(s * 30);
 
-const yellowHead: React.CSSProperties = {
+export const yellowHead: React.CSSProperties = {
   fontFamily: condensed,
   fontSize: 150,
   lineHeight: 1.02,
@@ -13,7 +13,7 @@ const yellowHead: React.CSSProperties = {
   transform: "skewX(-6deg)",
 };
 
-const cardHead = (fontSize: number): React.CSSProperties => ({
+export const cardHead = (fontSize: number): React.CSSProperties => ({
   fontFamily: inter,
   fontWeight: 800,
   fontStyle: "italic",
@@ -25,7 +25,7 @@ const cardHead = (fontSize: number): React.CSSProperties => ({
 });
 
 // One caption group laid over the footage, fading out at its end.
-const Overlay: React.FC<{ from: number; to: number; top: number; name: string; children: React.ReactNode }> = ({
+export const Overlay: React.FC<{ from: number; to: number; top: number; name: string; children: React.ReactNode }> = ({
   from,
   to,
   top,
@@ -39,14 +39,14 @@ const Overlay: React.FC<{ from: number; to: number; top: number; name: string; c
   </Sequence>
 );
 
-const Fade: React.FC<{ duration: number; top: number; children: React.ReactNode }> = ({ duration, top, children }) => (
+export const Fade: React.FC<{ duration: number; top: number; children: React.ReactNode }> = ({ duration, top, children }) => (
   <AbsoluteFill style={{ opacity: useExit(duration, 6), paddingTop: top, paddingLeft: 90, paddingRight: 90 }}>
     {children}
   </AbsoluteFill>
 );
 
 // Offsets inside a group, in frames from the group's start.
-const at = (word: number, groupStart: number) => sec(word) - sec(groupStart);
+export const at = (word: number, groupStart: number) => sec(word) - sec(groupStart);
 
 export const AuditEdit: React.FC = () => {
   const { durationInFrames } = useVideoConfig();
