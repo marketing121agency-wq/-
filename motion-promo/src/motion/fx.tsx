@@ -83,7 +83,8 @@ export const ArcText: React.FC<{
   style: React.CSSProperties;
   glowColor: string;
   radius?: number;
-}> = ({ text, delay = 0, style, glowColor, radius = 520 }) => {
+  stagger?: number;
+}> = ({ text, delay = 0, style, glowColor, radius = 520, stagger = 1.6 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const chars = [...text];
@@ -91,7 +92,7 @@ export const ArcText: React.FC<{
     <div style={{ display: "flex", whiteSpace: "pre", ...style, textShadow: glow(glowColor) }}>
       {chars.map((c, i) => {
         const p = spring({
-          frame: frame - delay - i * 1.6,
+          frame: frame - delay - i * stagger,
           fps,
           config: { damping: 18, stiffness: 120, mass: 0.7 },
         });
