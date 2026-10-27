@@ -5,7 +5,7 @@ import { Fade, Overlay, at, cardHead, sec, yellowHead } from "./AuditEdit";
 import { Flash, GrowBars, LightLeak, PunchCamera, RisingArrows, SparkleBurst, Underline, ZoomIn } from "./extras";
 
 // Outline icon that draws itself on and pops in with a glow, like the chain-link shot.
-const GlowIcon: React.FC<{ delay: number; size: number; color?: string; children: (draw: number) => React.ReactNode }> = ({
+export const GlowIcon: React.FC<{ delay: number; size: number; color?: string; children: (draw: number) => React.ReactNode }> = ({
   delay,
   size,
   color = "white",
@@ -33,7 +33,7 @@ const GlowIcon: React.FC<{ delay: number; size: number; color?: string; children
   );
 };
 
-const dash = (draw: number) => ({ pathLength: 1, strokeDasharray: 1, strokeDashoffset: draw });
+export const dash = (draw: number) => ({ pathLength: 1, strokeDasharray: 1, strokeDashoffset: draw });
 
 const Check: React.FC<{ delay: number }> = ({ delay }) => (
   <GlowIcon delay={delay} size={96} color={YELLOW}>
@@ -41,7 +41,7 @@ const Check: React.FC<{ delay: number }> = ({ delay }) => (
   </GlowIcon>
 );
 
-const Row: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+export const Row: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 28 }}>{children}</div>
 );
 

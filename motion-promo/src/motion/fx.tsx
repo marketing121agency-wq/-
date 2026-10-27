@@ -117,10 +117,12 @@ export const ArcText: React.FC<{
 };
 
 // Digits pop in one by one, each growing from small with a green glow.
-export const PopNumber: React.FC<{ text: string; delay?: number; size?: number }> = ({
+export const PopNumber: React.FC<{ text: string; delay?: number; size?: number; color?: string; stagger?: number }> = ({
   text,
   delay = 0,
   size = 300,
+  color = GREEN,
+  stagger = 3,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -132,13 +134,13 @@ export const PopNumber: React.FC<{ text: string; delay?: number; size?: number }
         fontFamily: condensed,
         fontSize: size,
         lineHeight: 1,
-        color: GREEN,
+        color,
         whiteSpace: "pre",
-        textShadow: glow(GREEN, 1.1),
+        textShadow: glow(color, 1.1),
       }}
     >
       {[...text].map((c, i) => {
-        const p = spring({ frame: frame - delay - i * 3, fps, config: { damping: 12, stiffness: 160 } });
+        const p = spring({ frame: frame - delay - i * stagger, fps, config: { damping: 12, stiffness: 160 } });
         return (
           <span
             key={i}
