@@ -1,4 +1,5 @@
 import { Composition, Series } from "remotion";
+import { AuditEdit } from "./motion/AuditEdit";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
 export const MyComposition = () => {
@@ -7,6 +8,19 @@ export const MyComposition = () => {
       id="AgencyPromo"
       component={AgencyPromo}
       durationInFrames={450}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
+  );
+};
+
+export const AuditEditComposition = () => {
+  return (
+    <Composition
+      id="AuditEdit"
+      component={AuditEdit}
+      durationInFrames={318}
       fps={30}
       width={1080}
       height={1920}
