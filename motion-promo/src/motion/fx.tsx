@@ -23,7 +23,8 @@ export const GREEN = "#3dff3a";
 export const glow = (color: string, strength = 1) =>
   [
     // Soft dark halo keeps text readable over the white shirt.
-    "0 3px 14px rgba(0,0,0,0.45)",
+    "0 2px 4px rgba(0,0,0,0.35)",
+    "0 3px 18px rgba(0,0,0,0.55)",
     `0 0 ${6 * strength}px ${color}`,
     `0 0 ${18 * strength}px ${color}`,
     `0 0 ${42 * strength}px ${color}aa`,

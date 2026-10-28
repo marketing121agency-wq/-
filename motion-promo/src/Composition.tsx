@@ -2,6 +2,7 @@ import { Composition, Series } from "remotion";
 import { AuditEdit } from "./motion/AuditEdit";
 import { GrowthEdit } from "./motion/GrowthEdit";
 import { TiredEdit } from "./motion/TiredEdit";
+import { IntroEdit } from "./motion/IntroEdit";
 import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
@@ -79,6 +80,19 @@ export const GlassSubsCompositions = () => {
         height={1920}
       />
     </>
+  );
+};
+
+export const IntroEditComposition = () => {
+  return (
+    <Composition
+      id="IntroEdit"
+      component={IntroEdit}
+      durationInFrames={723}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
   );
 };
 
