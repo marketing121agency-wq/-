@@ -46,16 +46,16 @@ export const IntroEdit: React.FC = () => (
       <Shot src="intro-part2.mp4" trimBefore={360} length={171} scale={1.2} originY="35%" />
     </Sequence>
 
-    <Overlay name="Ismim Muhammadjon" from={0.2} to={1.15} top={1020}>
+    <Overlay name="Ismim Muhammadjon" from={0.2} to={1.15} top={1220}>
       <SubText text="ismim" delay={0} size={56} backdrop />
       <ArcText text="MUHAMMADJON" delay={3} stagger={0.6} glowColor={YELLOW} style={yellowHead} />
     </Overlay>
 
-    <Overlay name="Jamoamiz bilan" from={1.15} to={1.95} top={1120}>
+    <Overlay name="Jamoamiz bilan" from={1.15} to={1.95} top={1320}>
       <Centered lines={["jamoamiz bilan birga"]} delays={[0]} size={58} />
     </Overlay>
 
-    <Overlay name="Katta va o'rta" from={1.95} to={4.0} top={1000}>
+    <Overlay name="Katta va o'rta" from={1.95} to={4.0} top={1200}>
       <SubText text="4 yildan beri" delay={0} size={56} backdrop />
       <ArcText text="KATTA VA O‘RTA" delay={at(2.05, 1.95)} stagger={1} glowColor={YELLOW} style={yellowHead} />
       <SubText text="bizneslarga" delay={at(2.6, 1.95)} size={56} align="right" backdrop />
@@ -74,35 +74,35 @@ export const IntroEdit: React.FC = () => (
       </Fade>
     </Sequence>
 
-    <Overlay name="Daromad 2x" from={7.1} to={8.75} top={1080}>
+    <Overlay name="Daromad 2x" from={7.1} to={8.75} top={1280}>
       <Centered lines={["loyihalarimiz daromadini 2x ga oshirish"]} delays={[0]} size={50} />
     </Overlay>
 
-    <Overlay name="500 000$" from={8.9} to={11.65} top={980}>
+    <Overlay name="500 000$" from={8.9} to={11.65} top={1180}>
       <SubText text="ijtimoiy tarmoqlarda" delay={0} size={56} backdrop />
       <PopNumber text="500 000$" delay={4} size={250} />
       <SubText text="dan oshiq sotuvlar qilganmiz" delay={14} size={56} backdrop />
     </Overlay>
 
-    <Overlay name="Chuqur audit" from={12.2} to={13.75} top={1060}>
+    <Overlay name="Chuqur audit" from={12.2} to={13.75} top={1260}>
       <Centered lines={["jamoamiz biznesni chuqur", "audit qilish"]} delays={[0, 14]} size={56} />
     </Overlay>
 
-    <Overlay name="Bozorni o'lchash" from={14.0} to={15.25} top={1100}>
+    <Overlay name="Bozorni o'lchash" from={14.0} to={15.25} top={1300}>
       <Centered lines={["bozorni raqamlarda o‘lchash"]} delays={[0]} size={58} />
     </Overlay>
 
-    <Overlay name="Strategiya" from={15.7} to={17.95} top={1040}>
+    <Overlay name="Strategiya" from={15.7} to={17.95} top={1240}>
       <Centered lines={["va ko‘p yillik marketing", "strategiya tuzish", "ko‘nikmalariga ega"]} delays={[0, 18, 36]} size={54} />
     </Overlay>
 
     {/* Link icon between offset words, as in the reference's "ro'yxatdan o'tsangiz" shot. */}
     <Sequence name="Havola" from={sec(18.1)} durationInFrames={sec(20.25) - sec(18.1)}>
       <Fade duration={sec(20.25) - sec(18.1)} top={0}>
-        <div style={{ position: "absolute", left: 90, top: 1000 }}>
+        <div style={{ position: "absolute", left: 90, top: 1200 }}>
           <SubText text="agar ushbu havolani bosib" delay={0} size={56} backdrop />
         </div>
-        <div style={{ position: "absolute", left: 230, top: 1110 }}>
+        <div style={{ position: "absolute", left: 230, top: 1310 }}>
           <GlowIcon delay={at(18.67, 18.1)} size={240} color="#ffffff">
             {(d) => (
               <>
@@ -113,19 +113,19 @@ export const IntroEdit: React.FC = () => (
             )}
           </GlowIcon>
         </div>
-        <div style={{ position: "absolute", right: 90, top: 1380 }}>
+        <div style={{ position: "absolute", right: 90, top: 1580 }}>
           <SubText text="ro‘yxatdan o‘tsangiz" delay={at(19.5, 18.1)} size={56} align="right" backdrop />
         </div>
       </Fade>
     </Sequence>
 
-    <Overlay name="Tekinga audit" from={20.25} to={21.85} top={1000}>
+    <Overlay name="Tekinga audit" from={20.25} to={21.85} top={1200}>
       <SubText text="biznesingizni" delay={0} size={56} backdrop />
       <ArcText text="TEKINGA AUDIT" delay={at(20.75, 20.25)} stagger={0.9} glowColor={YELLOW} style={yellowHead} />
       <SubText text="qilib" delay={at(21.5, 20.25)} size={56} backdrop />
     </Overlay>
 
-    <Overlay name="O'sish nuqtalari" from={21.85} to={24.1} top={980}>
+    <Overlay name="O'sish nuqtalari" from={21.85} to={24.1} top={1180}>
       <PopNumber text="O‘SISH" delay={0} size={250} />
       <SubText text="nuqtalaringizni" delay={at(22.1, 21.85)} size={56} backdrop />
       <SubText text="belgilab beramiz" delay={at(22.85, 21.85)} size={56} backdrop />
