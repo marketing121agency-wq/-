@@ -45,9 +45,15 @@ export const SubText: React.FC<{
   delay?: number;
   size?: number;
   align?: "left" | "center" | "right";
-}> = ({ text, delay = 0, size = 48, align = "left" }) => {
+  backdrop?: boolean;
+}> = ({ text, delay = 0, size = 48, align = "left", backdrop = false }) => {
   const frame = useCurrentFrame();
   const chars = [...text];
+  // Soft dark cloud that eases in behind the words so they read over bright footage.
+  const shade = interpolate(frame - delay, [0, 10 + chars.length * 0.7], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <div
       style={{
@@ -62,17 +68,32 @@ export const SubText: React.FC<{
         textShadow: glow("rgba(255,255,255,0.55)", 0.6),
       }}
     >
-      {chars.map((c, i) => {
-        const o = interpolate(frame - delay - i * 0.7, [0, 7], [0, 1], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        });
-        return (
-          <span key={i} style={{ opacity: o, filter: `blur(${(1 - o) * 6}px)` }}>
-            {c}
-          </span>
-        );
-      })}
+      <span style={{ position: "relative", display: "inline-block", isolation: "isolate" }}>
+        {backdrop ? (
+          <span
+            style={{
+              position: "absolute",
+              inset: `-${size * 0.75}px -${size * 1.1}px`,
+              borderRadius: "50%",
+              background: "radial-gradient(ellipse at center, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.25) 65%, transparent 82%)",
+              filter: `blur(${size * 0.3}px)`,
+              opacity: shade,
+              zIndex: -1,
+            }}
+          />
+        ) : null}
+        {chars.map((c, i) => {
+          const o = interpolate(frame - delay - i * 0.7, [0, 7], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          return (
+            <span key={i} style={{ opacity: o, filter: `blur(${(1 - o) * 6}px)` }}>
+              {c}
+            </span>
+          );
+        })}
+      </span>
     </div>
   );
 };

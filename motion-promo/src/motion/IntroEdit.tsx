@@ -26,7 +26,7 @@ const Shot: React.FC<{ src: string; trimBefore: number; length: number; scale: n
 const Centered: React.FC<{ lines: string[]; delays: number[]; size?: number }> = ({ lines, delays, size = 54 }) => (
   <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
     {lines.map((l, i) => (
-      <SubText key={l} text={l} delay={delays[i]} size={size} align="center" />
+      <SubText key={l} text={l} delay={delays[i]} size={size} align="center" backdrop />
     ))}
   </div>
 );
@@ -47,7 +47,7 @@ export const IntroEdit: React.FC = () => (
     </Sequence>
 
     <Overlay name="Ismim Muhammadjon" from={0.2} to={1.15} top={1020}>
-      <SubText text="ismim" delay={0} size={56} />
+      <SubText text="ismim" delay={0} size={56} backdrop />
       <ArcText text="MUHAMMADJON" delay={3} stagger={0.6} glowColor={YELLOW} style={yellowHead} />
     </Overlay>
 
@@ -56,9 +56,9 @@ export const IntroEdit: React.FC = () => (
     </Overlay>
 
     <Overlay name="Katta va o'rta" from={1.95} to={4.0} top={1000}>
-      <SubText text="4 yildan beri" delay={0} size={56} />
+      <SubText text="4 yildan beri" delay={0} size={56} backdrop />
       <ArcText text="KATTA VA O‘RTA" delay={at(2.05, 1.95)} stagger={1} glowColor={YELLOW} style={yellowHead} />
-      <SubText text="bizneslarga" delay={at(2.6, 1.95)} size={56} align="right" />
+      <SubText text="bizneslarga" delay={at(2.6, 1.95)} size={56} align="right" backdrop />
     </Overlay>
 
     <Sequence name="Digital marketing card" from={sec(4.0)} durationInFrames={sec(6.6) - sec(4.0)}>
@@ -79,9 +79,9 @@ export const IntroEdit: React.FC = () => (
     </Overlay>
 
     <Overlay name="500 000$" from={8.9} to={11.65} top={980}>
-      <SubText text="ijtimoiy tarmoqlarda" delay={0} size={56} />
+      <SubText text="ijtimoiy tarmoqlarda" delay={0} size={56} backdrop />
       <PopNumber text="500 000$" delay={4} size={250} />
-      <SubText text="dan oshiq sotuvlar qilganmiz" delay={14} size={56} />
+      <SubText text="dan oshiq sotuvlar qilganmiz" delay={14} size={56} backdrop />
     </Overlay>
 
     <Overlay name="Chuqur audit" from={12.2} to={13.75} top={1060}>
@@ -100,7 +100,7 @@ export const IntroEdit: React.FC = () => (
     <Sequence name="Havola" from={sec(18.1)} durationInFrames={sec(20.25) - sec(18.1)}>
       <Fade duration={sec(20.25) - sec(18.1)} top={0}>
         <div style={{ position: "absolute", left: 90, top: 1000 }}>
-          <SubText text="agar ushbu havolani bosib" delay={0} size={56} />
+          <SubText text="agar ushbu havolani bosib" delay={0} size={56} backdrop />
         </div>
         <div style={{ position: "absolute", left: 230, top: 1110 }}>
           <GlowIcon delay={at(18.67, 18.1)} size={240} color="#ffffff">
@@ -114,21 +114,21 @@ export const IntroEdit: React.FC = () => (
           </GlowIcon>
         </div>
         <div style={{ position: "absolute", right: 90, top: 1380 }}>
-          <SubText text="ro‘yxatdan o‘tsangiz" delay={at(19.5, 18.1)} size={56} align="right" />
+          <SubText text="ro‘yxatdan o‘tsangiz" delay={at(19.5, 18.1)} size={56} align="right" backdrop />
         </div>
       </Fade>
     </Sequence>
 
     <Overlay name="Tekinga audit" from={20.25} to={21.85} top={1000}>
-      <SubText text="biznesingizni" delay={0} size={56} />
+      <SubText text="biznesingizni" delay={0} size={56} backdrop />
       <ArcText text="TEKINGA AUDIT" delay={at(20.75, 20.25)} stagger={0.9} glowColor={YELLOW} style={yellowHead} />
-      <SubText text="qilib" delay={at(21.5, 20.25)} size={56} />
+      <SubText text="qilib" delay={at(21.5, 20.25)} size={56} backdrop />
     </Overlay>
 
     <Overlay name="O'sish nuqtalari" from={21.85} to={24.1} top={980}>
       <PopNumber text="O‘SISH" delay={0} size={250} />
-      <SubText text="nuqtalaringizni" delay={at(22.1, 21.85)} size={56} />
-      <SubText text="belgilab beramiz" delay={at(22.85, 21.85)} size={56} />
+      <SubText text="nuqtalaringizni" delay={at(22.1, 21.85)} size={56} backdrop />
+      <SubText text="belgilab beramiz" delay={at(22.85, 21.85)} size={56} backdrop />
     </Overlay>
   </AbsoluteFill>
 );
