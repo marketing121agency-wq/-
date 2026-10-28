@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
 import { ArcText, GridCard, PopNumber, SubText, YELLOW } from "./fx";
 import { Fade, Overlay, at, cardHead, sec, yellowHead } from "./AuditEdit";
 import { GlowIcon, dash } from "./GrowthEdit";
@@ -31,6 +31,50 @@ const Centered: React.FC<{ lines: string[]; delays: number[]; size?: number }> =
   </div>
 );
 
+// Sound effects, all quieter than the voice: whooshes on arc-in headlines and the card cut,
+// a soft glass ping when white captions appear, plucks on each popped digit or letter.
+type Cue = [number, string, number];
+const caption = (t: number): Cue => [t, "glass_001.ogg", 0.16];
+const plucks = (start: number, text: string): Cue[] =>
+  [...text].flatMap((c, i) => (c === " " ? [] : [[start + i * 0.1, "pluck_002.ogg", 0.3] as Cue]));
+
+const CUES: Cue[] = [
+  [0.27, "whoosh-short.wav", 0.35],
+  caption(1.15),
+  caption(1.95),
+  [2.05, "whoosh-short.wav", 0.35],
+  [3.75, "whoosh-long.wav", 0.4],
+  [4.0, "impactSoft_medium_000.ogg", 0.45],
+  [4.1, "whoosh-short.wav", 0.28],
+  [4.4, "whoosh-short.wav", 0.28],
+  [6.45, "whoosh-long.wav", 0.32],
+  caption(7.1),
+  caption(8.9),
+  ...plucks(9.03, "500 000$"),
+  [9.85, "confirmation_002.ogg", 0.3],
+  caption(12.2),
+  caption(14.0),
+  caption(15.7),
+  caption(18.1),
+  [18.67, "maximize_004.ogg", 0.32],
+  [19.2, "glass_002.ogg", 0.3],
+  caption(19.5),
+  caption(20.25),
+  [20.75, "whoosh-short.wav", 0.35],
+  ...plucks(21.85, "O‘SISH"),
+  [22.5, "maximize_006.ogg", 0.3],
+];
+
+const Sfx: React.FC = () => (
+  <>
+    {CUES.map(([t, file, volume], i) => (
+      <Sequence key={i} name={`sfx ${file}`} from={Math.round(t * 30)} durationInFrames={60} layout="none">
+        <Audio src={staticFile(`sfx/${file}`)} volume={volume} />
+      </Sequence>
+    ))}
+  </>
+);
+
 export const IntroEdit: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "black" }}>
     <Sequence name="Part 1" durationInFrames={PART1}>
@@ -45,6 +89,8 @@ export const IntroEdit: React.FC = () => (
     <Sequence name="Part 2 · tower" from={PART1 + 360} durationInFrames={171}>
       <Shot src="intro-part2.mp4" trimBefore={360} length={171} scale={1.2} originY="35%" />
     </Sequence>
+
+    <Sfx />
 
     <Overlay name="Ismim Muhammadjon" from={0.2} to={1.15} top={1220}>
       <SubText text="ismim" delay={0} size={56} backdrop />
