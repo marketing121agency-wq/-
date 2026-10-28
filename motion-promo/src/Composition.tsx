@@ -2,6 +2,7 @@ import { Composition, Series } from "remotion";
 import { AuditEdit } from "./motion/AuditEdit";
 import { GrowthEdit } from "./motion/GrowthEdit";
 import { TiredEdit } from "./motion/TiredEdit";
+import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
 export const MyComposition = () => {
@@ -53,6 +54,31 @@ export const TiredEditComposition = () => {
       width={1080}
       height={1920}
     />
+  );
+};
+
+export const GlassSubsCompositions = () => {
+  return (
+    <>
+      <Composition
+        id="CitySubs"
+        component={GlassSubsEdit}
+        defaultProps={{ src: "city-footage.mp4", lines: cityLines }}
+        durationInFrames={530}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="MallSubs"
+        component={GlassSubsEdit}
+        defaultProps={{ src: "mall-footage.mp4", lines: mallLines }}
+        durationInFrames={937}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+    </>
   );
 };
 
