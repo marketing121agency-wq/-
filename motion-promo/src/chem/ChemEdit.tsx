@@ -292,9 +292,9 @@ export const ChemEdit: React.FC = () => {
         />
       </Sequence>
 
-      <Sequence name="Cut · 01 uzviylik" from={sec(12.7)} durationInFrames={sec(18.15) - sec(12.7)}>
+      <Sequence name="Cut · 01 uzviylik" from={sec(12.7)} durationInFrames={sec(18.3) - sec(12.7)}>
         <CutAway
-          len={sec(18.15) - sec(12.7)}
+          len={sec(18.3) - sec(12.7)}
           index="01"
           label="uzviylik"
           variant="broken"
@@ -313,9 +313,9 @@ export const ChemEdit: React.FC = () => {
         </CutAway>
       </Sequence>
 
-      <Sequence name="Cut · 02 test" from={sec(23.2)} durationInFrames={sec(28.5) - sec(23.2)}>
+      <Sequence name="Cut · 02 test" from={sec(23.2)} durationInFrames={sec(28.85) - sec(23.2)}>
         <CutAway
-          len={sec(28.5) - sec(23.2)}
+          len={sec(28.85) - sec(23.2)}
           index="02"
           label="test"
           variant="answers"
@@ -337,9 +337,9 @@ export const ChemEdit: React.FC = () => {
         </CutAway>
       </Sequence>
 
-      <Sequence name="Cut · 03 amalda" from={sec(32.8)} durationInFrames={sec(36.4) - sec(32.8)}>
+      <Sequence name="Cut · 03 amalda" from={sec(32.8)} durationInFrames={sec(36.75) - sec(32.8)}>
         <CutAway
-          len={sec(36.4) - sec(32.8)}
+          len={sec(36.75) - sec(32.8)}
           index="03"
           label="amaliyot"
           variant="flask"
