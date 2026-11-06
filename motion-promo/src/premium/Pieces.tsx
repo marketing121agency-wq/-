@@ -5,7 +5,7 @@ import { INK, PAPER, SILVER, sans, tall } from "./tokens";
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 // Huge condensed title that rises letter by letter; meant to sit behind the speaker cutout.
-export const TallTitle: React.FC<{ text: string; top: number; size: number; delay?: number }> = ({ text, top, size, delay = 0 }) => {
+export const TallTitle: React.FC<{ text: string; top: number; size: number; delay?: number; fill?: string }> = ({ text, top, size, delay = 0, fill = SILVER }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   return (
@@ -23,7 +23,7 @@ export const TallTitle: React.FC<{ text: string; top: number; size: number; dela
                 transformOrigin: "50% 100%",
                 opacity: p,
                 filter: `blur(${(1 - p) * 10}px)`,
-                backgroundImage: SILVER,
+                backgroundImage: fill,
                 WebkitBackgroundClip: "text",
                 color: "transparent",
               }}
