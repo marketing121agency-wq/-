@@ -3,6 +3,7 @@ import { AuditEdit } from "./motion/AuditEdit";
 import { GrowthEdit } from "./motion/GrowthEdit";
 import { TiredEdit } from "./motion/TiredEdit";
 import { IntroEdit } from "./motion/IntroEdit";
+import { PremiumPreview } from "./premium/PremiumPreview";
 import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
@@ -89,6 +90,19 @@ export const IntroEditComposition = () => {
       id="IntroEdit"
       component={IntroEdit}
       durationInFrames={723}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
+  );
+};
+
+export const PremiumPreviewComposition = () => {
+  return (
+    <Composition
+      id="PremiumPreview"
+      component={PremiumPreview}
+      durationInFrames={216}
       fps={30}
       width={1080}
       height={1920}
