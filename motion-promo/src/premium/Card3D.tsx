@@ -68,14 +68,11 @@ const useFaceTexture = (title: string, subtitle: string) =>
 // Studio reflections so the black lacquer and silver edge catch real highlights.
 const StudioEnv: React.FC = () => {
   const { gl, scene } = useThree();
-  React.useEffect(() => {
+  // Built during render, not in an effect, so the very first captured frame already has reflections.
+  useMemo(() => {
     const pmrem = new THREE.PMREMGenerator(gl);
-    const env = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-    scene.environment = env;
-    return () => {
-      env.dispose();
-      pmrem.dispose();
-    };
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    pmrem.dispose();
   }, [gl, scene]);
   return null;
 };

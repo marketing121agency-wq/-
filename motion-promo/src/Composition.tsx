@@ -4,6 +4,7 @@ import { GrowthEdit } from "./motion/GrowthEdit";
 import { TiredEdit } from "./motion/TiredEdit";
 import { IntroEdit } from "./motion/IntroEdit";
 import { PremiumPreview } from "./premium/PremiumPreview";
+import { PremiumEdit } from "./premium/PremiumEdit";
 import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
@@ -103,6 +104,19 @@ export const PremiumPreviewComposition = () => {
       id="PremiumPreview"
       component={PremiumPreview}
       durationInFrames={216}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
+  );
+};
+
+export const PremiumEditComposition = () => {
+  return (
+    <Composition
+      id="PremiumEdit"
+      component={PremiumEdit}
+      durationInFrames={1032}
       fps={30}
       width={1080}
       height={1920}
