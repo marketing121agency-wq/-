@@ -7,6 +7,7 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import antonJson from "../fonts3d/anton.typeface.json";
+import { FallingBills, MoneyStack } from "./Money3D";
 
 const font = new FontLoader().parse(antonJson as unknown as Parameters<FontLoader["parse"]>[0]);
 
@@ -56,7 +57,7 @@ const Coins: React.FC = () => {
   );
 };
 
-const Rig: React.FC<{ text: string; coins?: boolean; maxWidth: number; y: number }> = ({ text, coins, maxWidth, y }) => {
+const Rig: React.FC<{ text: string; coins?: boolean; money?: "stack" | "rain"; maxWidth: number; y: number }> = ({ text, coins, money, maxWidth, y }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 16, mass: 1.1 } });
@@ -67,6 +68,13 @@ const Rig: React.FC<{ text: string; coins?: boolean; maxWidth: number; y: number
       <StudioEnv />
       <ambientLight intensity={0.15} />
       <pointLight position={[sweep, 1.5, 3]} intensity={18} distance={9} />
+      {money ? <directionalLight position={[2, 5, 4]} intensity={0.7} /> : null}
+      {money ? <FallingBills spread={money === "stack" ? 4.2 : 4.6} /> : null}
+      {money === "stack" ? (
+        <group position={[0, -0.75, 0]} rotation={[0.42, rotY * 0.6, 0]} scale={0.58}>
+          <MoneyStack />
+        </group>
+      ) : null}
       <group position={[0, y + Math.sin(frame / 30) * 0.05, 0]} rotation={[0.08, rotY, 0]} scale={enter}>
         <ChromeText text={text} maxWidth={maxWidth} />
         {coins ? <Coins /> : null}
@@ -75,11 +83,11 @@ const Rig: React.FC<{ text: string; coins?: boolean; maxWidth: number; y: number
   );
 };
 
-export const Chrome3D: React.FC<{ text: string; coins?: boolean; maxWidth?: number; y?: number }> = ({ text, coins, maxWidth = 3.4, y = 0 }) => {
+export const Chrome3D: React.FC<{ text: string; coins?: boolean; money?: "stack" | "rain"; maxWidth?: number; y?: number }> = ({ text, coins, money, maxWidth = 3.4, y = 0 }) => {
   const { width, height } = useVideoConfig();
   return (
     <ThreeCanvas width={width} height={height} camera={{ fov: 30, position: [0, 0, 14] }} gl={{ antialias: true }}>
-      <Rig text={text} coins={coins} maxWidth={maxWidth} y={y} />
+      <Rig text={text} coins={coins} money={money} maxWidth={maxWidth} y={y} />
     </ThreeCanvas>
   );
 };

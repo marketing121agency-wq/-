@@ -67,7 +67,7 @@ export const MillionEdit: React.FC = () => (
     <Sequence name="3D · $1 000 000" from={sec(7.0)} durationInFrames={sec(10.0) - sec(7.0)}>
       <CutAway len={sec(3)}>
         <Studio>
-          <Chrome3D text="$1 000 000" coins maxWidth={2.9} y={0.3} />
+          <Chrome3D text="$1 000 000" money="stack" maxWidth={2.7} y={1.35} />
           <Dust />
           <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 420 }}>
             <Line at={10}>
@@ -81,7 +81,7 @@ export const MillionEdit: React.FC = () => (
     <Sequence name="3D · 19" from={sec(21.0)} durationInFrames={sec(24.0) - sec(21.0)}>
       <CutAway len={sec(3)}>
         <Studio>
-          <Chrome3D text="19" maxWidth={2.0} y={0.4} />
+          <Chrome3D text="19" money="rain" maxWidth={2.0} y={0.4} />
           <Dust seed="n" />
           <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 420 }}>
             <Line at={10}>
