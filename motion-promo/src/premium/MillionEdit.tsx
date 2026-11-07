@@ -78,19 +78,6 @@ export const MillionEdit: React.FC = () => (
       </CutAway>
     </Sequence>
 
-    <Sequence name="3D · 19" from={sec(21.0)} durationInFrames={sec(24.0) - sec(21.0)}>
-      <CutAway len={sec(3)}>
-        <Studio>
-          <Chrome3D text="19" money="rain" maxWidth={2.0} y={0.4} />
-          <Dust seed="n" />
-          <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 420 }}>
-            <Line at={10}>
-              yoshda <span style={{ fontStyle: "italic", fontWeight: 300 }}>million dollar</span>
-            </Line>
-          </AbsoluteFill>
-        </Studio>
-      </CutAway>
-    </Sequence>
 
   </AbsoluteFill>
 );
