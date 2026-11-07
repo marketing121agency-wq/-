@@ -1,4 +1,4 @@
-import { AuditEditComposition, GrowthEditComposition, TiredEditComposition, GlassSubsCompositions, IntroEditComposition, PremiumPreviewComposition, PremiumEditComposition, ChemEditComposition, MyComposition } from "./Composition";
+import { AuditEditComposition, GrowthEditComposition, TiredEditComposition, GlassSubsCompositions, IntroEditComposition, PremiumPreviewComposition, PremiumEditComposition, ChemEditComposition, MillionEditComposition, MyComposition } from "./Composition";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -12,6 +12,7 @@ export const RemotionRoot: React.FC = () => {
       <PremiumPreviewComposition />
       <PremiumEditComposition />
       <ChemEditComposition />
+      <MillionEditComposition />
     </>
   );
 };

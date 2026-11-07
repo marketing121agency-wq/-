@@ -6,6 +6,7 @@ import { IntroEdit } from "./motion/IntroEdit";
 import { PremiumPreview } from "./premium/PremiumPreview";
 import { PremiumEdit } from "./premium/PremiumEdit";
 import { ChemEdit } from "./chem/ChemEdit";
+import { MillionEdit } from "./premium/MillionEdit";
 import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
@@ -131,6 +132,19 @@ export const ChemEditComposition = () => {
       id="ChemEdit"
       component={ChemEdit}
       durationInFrames={1768}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
+  );
+};
+
+export const MillionEditComposition = () => {
+  return (
+    <Composition
+      id="MillionEdit"
+      component={MillionEdit}
+      durationInFrames={1224}
       fps={30}
       width={1080}
       height={1920}
