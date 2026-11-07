@@ -1,21 +1,12 @@
 import React from "react";
-import { AbsoluteFill, Audio, Easing, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
-import { CaptionPanel, Dust, GridVignette, PanelLine, TallTitle } from "./Pieces";
+import { AbsoluteFill, Easing, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame } from "remotion";
+import { Dust, TallTitle } from "./Pieces";
 import { Chrome3D } from "./Chrome3D";
 import { PAPER, SILVER, sans, sec, tall } from "./tokens";
 
-const TOTAL = 1224; // 40.8 s
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
-// Everything drawn over the footage stays at or below this line, so it never covers the face.
-const FACE_SAFE_TOP = 1040;
-
-// Slow push-in centred on the burned-in caption, so the covering panel stays aligned.
-const PushIn: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const frame = useCurrentFrame();
-  const s = interpolate(frame, [0, TOTAL], [1, 1.06]);
-  return <AbsoluteFill style={{ transform: `scale(${s})`, transformOrigin: "50% 61.1%" }}>{children}</AbsoluteFill>;
-};
+// Overlays on the footage sit below the source caption (y ≈ 1070–1275), so they never cover the face.
 
 const Studio: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <AbsoluteFill style={{ background: "radial-gradient(ellipse 70% 45% at 50% 40%, #2a2a2a 0%, #0d0d0d 55%, #050505 100%)" }}>{children}</AbsoluteFill>
@@ -55,29 +46,12 @@ const MillionCounter: React.FC = () => {
   );
 };
 
-type Cue = [number, string, number];
-const CUES: Cue[] = [
-  [0.1, "whoosh-long.wav", 0.3],
-  [6.8, "whoosh-short.wav", 0.35],
-  [7.25, "maximize_004.ogg", 0.3],
-  [9.75, "whoosh-short.wav", 0.25],
-  [14.0, "maximize_006.ogg", 0.25],
-  [16.1, "confirmation_002.ogg", 0.28],
-  [20.8, "whoosh-short.wav", 0.35],
-  [21.25, "maximize_004.ogg", 0.3],
-  [23.75, "whoosh-short.wav", 0.25],
-  [37.45, "whoosh-long.wav", 0.32],
-  [38.0, "impactSoft_medium_000.ogg", 0.4],
-];
-
 export const MillionEdit: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: "black" }}>
-    <PushIn>
-      <OffthreadVideo src={staticFile("million-footage.mp4")} style={{ filter: "saturate(0.12) contrast(1.12) brightness(0.95)" }} />
-    </PushIn>
-    <GridVignette opacity={0.07} />
+    {/* Source footage as is: original colours, framing and burned-in captions. */}
+    <OffthreadVideo src={staticFile("million-footage.mp4")} />
 
-    {/* Opener title sits under the panel, well clear of the face. */}
+    {/* Opener title sits under the source caption, well clear of the face. */}
     <Sequence name="Opener title" durationInFrames={sec(3.6)}>
       <OutFade len={sec(3.6)}>
         <TallTitle text="19 YOSHDA" top={1340} size={250} delay={6} />
@@ -89,14 +63,6 @@ export const MillionEdit: React.FC = () => (
         <MillionCounter />
       </OutFade>
     </Sequence>
-
-    {/* Permanent panel over the burned-in caption; its top is the face-safe line. */}
-    <div style={{ position: "absolute", inset: 0, top: FACE_SAFE_TOP - 1040 }}>
-      <CaptionPanel>
-        <PanelLine text="$1 000 000 ni" hl="$1 000 000" delay={4} size={64} />
-        <PanelLine text="19 yoshimda ushlaganman…" delay={12} size={58} />
-      </CaptionPanel>
-    </div>
 
     <Sequence name="3D · $1 000 000" from={sec(7.0)} durationInFrames={sec(10.0) - sec(7.0)}>
       <CutAway len={sec(3)}>
@@ -126,41 +92,10 @@ export const MillionEdit: React.FC = () => (
       </CutAway>
     </Sequence>
 
-    {/* Outro replaces the source's gold end card with the same message in black and white. */}
-    <Sequence name="Outro" from={sec(37.6)}>
-      <InFade>
-        <Studio>
-          <Chrome3D text="1+1" maxWidth={2.4} y={1.2} />
-          <Dust seed="o" />
-          <AbsoluteFill style={{ justifyContent: "flex-end", paddingBottom: 470, gap: 8 }}>
-            <Line at={8} size={96} weight={800}>
-              TO‘LIQ VIDEONI
-            </Line>
-            <Line at={16} size={50} weight={600}>
-              YouTube’dagi 1+1 Podcast
-            </Line>
-            <Line at={22} size={50} weight={300} italic>
-              kanalida ko‘rishingiz mumkin
-            </Line>
-          </AbsoluteFill>
-        </Studio>
-      </InFade>
-    </Sequence>
-
-    {CUES.map(([t, file, volume], i) => (
-      <Sequence key={i} name={`sfx ${file}`} from={sec(t)} durationInFrames={60} layout="none">
-        <Audio src={staticFile(`sfx/${file}`)} volume={volume} />
-      </Sequence>
-    ))}
   </AbsoluteFill>
 );
 
 const OutFade: React.FC<{ len: number; children: React.ReactNode }> = ({ len, children }) => {
   const frame = useCurrentFrame();
   return <AbsoluteFill style={{ opacity: interpolate(frame, [len - 8, len], [1, 0], clamp) }}>{children}</AbsoluteFill>;
-};
-
-const InFade: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const frame = useCurrentFrame();
-  return <AbsoluteFill style={{ opacity: interpolate(frame, [0, 8], [0, 1], clamp) }}>{children}</AbsoluteFill>;
 };
