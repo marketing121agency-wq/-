@@ -46,7 +46,7 @@ const Coins: React.FC = () => {
       {new Array(6).fill(0).map((_, i) => {
         const a = (i / 6) * Math.PI * 2 + frame / 45;
         return (
-          <mesh key={i} position={[Math.cos(a) * 1.55, Math.sin(a * 2) * 0.35 - 0.1, Math.sin(a) * 1.3]} rotation={[Math.PI / 2 + a, a * 1.3, 0]}>
+          <mesh key={i} position={[Math.cos(a) * 1.75, Math.sin(a) * 0.9 - 0.05, -0.9 + Math.sin(a * 2) * 0.25]} rotation={[Math.PI / 2 + a, a * 1.3, 0]}>
             <cylinderGeometry args={[0.32, 0.32, 0.06, 48]} />
             {chrome}
           </mesh>
