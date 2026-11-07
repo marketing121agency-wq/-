@@ -5,12 +5,12 @@ import { INK, PAPER, SILVER, sans, tall } from "./tokens";
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 // Huge condensed title that rises letter by letter; meant to sit behind the speaker cutout.
-export const TallTitle: React.FC<{ text: string; top: number; size: number; delay?: number; fill?: string }> = ({ text, top, size, delay = 0, fill = SILVER }) => {
+export const TallTitle: React.FC<{ text: string; top: number; size: number; delay?: number; fill?: string; font?: string }> = ({ text, top, size, delay = 0, fill = SILVER, font = tall }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   return (
     <AbsoluteFill style={{ alignItems: "center", paddingTop: top }}>
-      <div style={{ display: "flex", fontFamily: tall, fontWeight: 300, fontSize: size, lineHeight: 0.9, letterSpacing: size * 0.01 }}>
+      <div style={{ display: "flex", fontFamily: font, fontWeight: 300, fontSize: size, lineHeight: 0.9, letterSpacing: size * 0.01 }}>
         {[...text].map((c, i) => {
           const p = spring({ frame: frame - delay - i * 2.5, fps, config: { damping: 200 }, durationInFrames: 22 });
           return (
@@ -24,6 +24,9 @@ export const TallTitle: React.FC<{ text: string; top: number; size: number; dela
                 opacity: p,
                 filter: `blur(${(1 - p) * 10}px)`,
                 backgroundImage: fill,
+                // Room below the baseline so cedillas (Ş, Ç) are painted too.
+                paddingBottom: size * 0.16,
+                marginBottom: -size * 0.16,
                 WebkitBackgroundClip: "text",
                 color: "transparent",
               }}
