@@ -122,6 +122,8 @@ const Outro: React.FC = () => {
     <AbsoluteFill style={{ opacity: fade }}>
       <AbsoluteFill style={{ filter: "blur(28px) brightness(0.55)", transform: "scale(1.08)" }}>
         <OffthreadVideo src={staticFile("million-footage.mp4")} trimBefore={sec(OUTRO_AT - 3.5)} muted />
+        {/* That footage still carries the old caption; cover it with the new one before blurring. */}
+        <SourceCaption />
       </AbsoluteFill>
       <AbsoluteFill style={{ alignItems: "center", paddingTop: 845 }}>
         <div>
@@ -148,7 +150,7 @@ export const MillionEdit: React.FC = () => (
     {/* Source footage as is: original colours and framing. */}
     <OffthreadVideo src={staticFile("million-footage.mp4")} />
 
-    <Sequence name="Caption (new alphabet)" durationInFrames={sec(OUTRO_AT)}>
+    <Sequence name="Caption (new alphabet)" durationInFrames={sec(OUTRO_AT) + 10}>
       <SourceCaption />
     </Sequence>
 
