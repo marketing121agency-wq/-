@@ -122,7 +122,8 @@ const Intro: React.FC<{ len: number }> = ({ len }) => (
 
 const IntroLogo: React.FC<{ src: string; delay: number }> = ({ src, delay }) => {
   const p = useEnter(delay);
-  return <LogoTile src={src} size={96} style={{ opacity: p, transform: `scale(${0.6 + 0.4 * p})` }} />;
+  // Blurred in the hook so the three picks stay a surprise.
+  return <LogoTile src={src} size={96} style={{ opacity: p, transform: `scale(${0.6 + 0.4 * p})`, filter: "blur(9px)" }} />;
 };
 
 const Outro: React.FC<{ len: number }> = ({ len }) => (
