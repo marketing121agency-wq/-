@@ -7,6 +7,7 @@ import { PremiumPreview } from "./premium/PremiumPreview";
 import { PremiumEdit } from "./premium/PremiumEdit";
 import { ChemEdit } from "./chem/ChemEdit";
 import { MillionEdit } from "./premium/MillionEdit";
+import { SvoyEdit } from "./svoy/SvoyEdit";
 import { GlassSubsEdit, cityLines, mallLines } from "./motion/GlassSubs";
 import { CardScene, HeadlineScene, IconScene, NumberScene } from "./motion/Scenes";
 
@@ -145,6 +146,19 @@ export const MillionEditComposition = () => {
       id="MillionEdit"
       component={MillionEdit}
       durationInFrames={1224}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
+  );
+};
+
+export const SvoyEditComposition = () => {
+  return (
+    <Composition
+      id="SvoyEdit"
+      component={SvoyEdit}
+      durationInFrames={2350}
       fps={30}
       width={1080}
       height={1920}
