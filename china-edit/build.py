@@ -18,6 +18,14 @@ SEGMENTS = [
     (1, 19.70, 21.80, 1.00),  # closing line in front of the shop
 ]
 
+# Hook at the very start: the "25-30% conversion, but the halva is great" line over the shop queue
+# and a sample in the hand, with an on-screen question. (input, start, end) for picture; audio is MAIN.
+HOOK_AUDIO = (42.30, 45.45)
+HOOK_PICTURE = [(0, 47.00, 48.60), (1, 10.40, 11.95)]
+HOOK_TEXT = ["Nega bu do‘kon oldida", "doim navbat?"]
+FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "motion-promo", "public", "fonts", "inter-full.ttf")
+HOOK_LEN = HOOK_AUDIO[1] - HOOK_AUDIO[0]
+
 # B-roll from the second clip over the talk, keyed by MAIN-clip time: (main_from, main_to, broll_from).
 OVERLAYS = [
     (10.50, 14.00, 4.60),   # giving out free samples
@@ -28,7 +36,7 @@ OVERLAYS = [
 
 
 def out_time(src_t):
-    acc = 0.0
+    acc = HOOK_LEN
     for inp, a, b, _ in SEGMENTS:
         if inp == 0 and a <= src_t <= b:
             return acc + src_t - a
@@ -53,7 +61,30 @@ def cut(src, a, b, path, extra="", audio=True):
     subprocess.run(cmd + ["-c:v", "libx264", "-preset", "fast", "-crf", "16", "-pix_fmt", "yuv420p", path], check=True)
 
 
-seg_files = []
+# Hook: picture pieces, joined, with the question drawn on top and the line from MAIN underneath.
+hook_parts = []
+for k, (inp, a, b) in enumerate(HOOK_PICTURE):
+    path = os.path.join(WORK, f"hook{k}.mov")
+    cut(SRC[inp], a, b, path, audio=False)
+    hook_parts.append(path)
+hook_audio = os.path.join(WORK, "hook_a.wav")
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(HOOK_AUDIO[0]), "-t", f"{HOOK_LEN:.3f}", "-i", MAIN, "-vn",
+                "-af", f"aresample=48000,afade=t=in:d=0.03,afade=t=out:st={HOOK_LEN - 0.08:.3f}:d=0.08",
+                "-c:a", "pcm_s16le", hook_audio], check=True)
+box = "box=1:boxcolor=black@0.55:boxborderw=26"
+draw = ",".join(
+    f"drawtext=fontfile='{FONT}':text='{line}':fontsize=84:fontcolor=white:{box}:x=(w-tw)/2:y=h*0.16+{i * 132}:"
+    f"alpha='min(1,t/0.25)'" for i, line in enumerate(HOOK_TEXT))
+hook = os.path.join(WORK, "hook.mov")
+hin = []
+for f in hook_parts:
+    hin += ["-i", f]
+subprocess.run(["ffmpeg", "-v", "error", "-y", *hin, "-i", hook_audio, "-filter_complex",
+                "".join(f"[{k}:v]" for k in range(len(hook_parts))) + f"concat=n={len(hook_parts)}:v=1:a=0,{draw}[v]",
+                "-map", "[v]", "-map", f"{len(hook_parts)}:a", "-t", f"{HOOK_LEN:.3f}", "-c:v", "libx264",
+                "-preset", "fast", "-crf", "16", "-pix_fmt", "yuv420p", "-c:a", "pcm_s16le", hook], check=True)
+
+seg_files = [hook]
 for i, (inp, a, b, zoom) in enumerate(SEGMENTS):
     z = f",scale=iw*{zoom}:ih*{zoom},crop=1080:1920,setsar=1" if zoom != 1 else ""
     path = os.path.join(WORK, f"seg{i}.mov")
